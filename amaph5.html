@@ -1,0 +1,173 @@
+<!--&lt;!&ndash;<!doctype html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html>&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+    <!--&lt;!&ndash;<meta charset="utf-8">&ndash;&gt;-->
+    <!--&lt;!&ndash;<meta http-equiv="X-UA-Compatible" content="IE=edge">&ndash;&gt;-->
+    <!--&lt;!&ndash;<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">&ndash;&gt;-->
+    <!--&lt;!&ndash;<title>点标记</title>&ndash;&gt;-->
+    <!--&lt;!&ndash;<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<style>&ndash;&gt;-->
+        <!--&lt;!&ndash;.marker {&ndash;&gt;-->
+            <!--&lt;!&ndash;color: #ff6600;&ndash;&gt;-->
+            <!--&lt;!&ndash;padding: 4px 10px;&ndash;&gt;-->
+            <!--&lt;!&ndash;border: 1px solid #fff;&ndash;&gt;-->
+            <!--&lt;!&ndash;white-space: nowrap;&ndash;&gt;-->
+            <!--&lt;!&ndash;font-size: 12px;&ndash;&gt;-->
+            <!--&lt;!&ndash;font-family: "";&ndash;&gt;-->
+            <!--&lt;!&ndash;background-color: #0066ff;&ndash;&gt;-->
+        <!--&lt;!&ndash;}&ndash;&gt;-->
+    <!--&lt;!&ndash;</style>&ndash;&gt;-->
+    <!--&lt;!&ndash;<script src="http://webapi.amap.com/maps?v=1.3&key=689bd89d963cfafa8591be1ea4ba9486"></script>&ndash;&gt;-->
+    <!--&lt;!&ndash;<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<div id="container"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;<div id="tip"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+    <!--&lt;!&ndash;var marker, map = new AMap.Map("container", {&ndash;&gt;-->
+        <!--&lt;!&ndash;resizeEnable: true,&ndash;&gt;-->
+        <!--&lt;!&ndash;center: [116.397428, 39.90923],&ndash;&gt;-->
+        <!--&lt;!&ndash;zoom: 13&ndash;&gt;-->
+    <!--&lt;!&ndash;});&ndash;&gt;-->
+        <!--&lt;!&ndash;map.plugin('AMap.Geolocation', function() {&ndash;&gt;-->
+        <!--&lt;!&ndash;geolocation = new AMap.Geolocation({&ndash;&gt;-->
+            <!--&lt;!&ndash;enableHighAccuracy: true,//是否使用高精度定位，默认:true&ndash;&gt;-->
+            <!--&lt;!&ndash;timeout: 100000,          //超过10秒后停止定位，默认：无穷大&ndash;&gt;-->
+            <!--&lt;!&ndash;showButton: false,        //显示定位按钮，默认：true&ndash;&gt;-->
+            <!--&lt;!&ndash;buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)&ndash;&gt;-->
+            <!--&lt;!&ndash;zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false&ndash;&gt;-->
+            <!--&lt;!&ndash;buttonPosition:'RB',&ndash;&gt;-->
+            <!--&lt;!&ndash;useNative:true&ndash;&gt;-->
+        <!--&lt;!&ndash;});&ndash;&gt;-->
+        <!--&lt;!&ndash;map.addControl(geolocation);&ndash;&gt;-->
+        <!--&lt;!&ndash;geolocation.getCurrentPosition();&ndash;&gt;-->
+        <!--&lt;!&ndash;AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息&ndash;&gt;-->
+        <!--&lt;!&ndash;AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息&ndash;&gt;-->
+    <!--&lt;!&ndash;});&ndash;&gt;-->
+    <!--&lt;!&ndash;//解析定位结果&ndash;&gt;-->
+    <!--&lt;!&ndash;function onComplete(data) {&ndash;&gt;-->
+        <!--&lt;!&ndash;var str=['定位成功'];&ndash;&gt;-->
+        <!--&lt;!&ndash;str.push('经度：' + data.position.getLng());&ndash;&gt;-->
+        <!--&lt;!&ndash;str.push('纬度：' + data.position.getLat());&ndash;&gt;-->
+        <!--&lt;!&ndash;str.push('精度：' + data.accuracy + ' 米');&ndash;&gt;-->
+        <!--&lt;!&ndash;str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));&ndash;&gt;-->
+        <!--&lt;!&ndash;document.getElementById('tip').innerHTML = str.join('<br>');&ndash;&gt;-->
+    <!--&lt;!&ndash;}&ndash;&gt;-->
+    <!--&lt;!&ndash;//解析定位错误信息&ndash;&gt;-->
+    <!--&lt;!&ndash;function onError(data) {&ndash;&gt;-->
+        <!--&lt;!&ndash;document.getElementById('tip').innerHTML = '定位失败'+data.message;&ndash;&gt;-->
+    <!--&lt;!&ndash;}&ndash;&gt;-->
+    <!--&lt;!&ndash;AMap.event.addDomListener(document.getElementById('addMarker'), 'click', function() {&ndash;&gt;-->
+        <!--&lt;!&ndash;addMarker();&ndash;&gt;-->
+    <!--&lt;!&ndash;}, false);&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;AMap.event.addDomListener(document.getElementById('updateMarker'), 'click', function() {&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;marker && updateMarker();&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;}, false);&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;AMap.event.addDomListener(document.getElementById('clearMarker'), 'click', function() {&ndash;&gt;-->
+        <!--&lt;!&ndash;if (marker) {&ndash;&gt;-->
+            <!--&lt;!&ndash;marker.setMap(null);&ndash;&gt;-->
+            <!--&lt;!&ndash;marker = null;&ndash;&gt;-->
+        <!--&lt;!&ndash;}&ndash;&gt;-->
+    <!--&lt;!&ndash;}, false);&ndash;&gt;-->
+
+    <!--&lt;!&ndash;// 实例化点标记&ndash;&gt;-->
+    <!--&lt;!&ndash;function addMarker() {&ndash;&gt;-->
+        <!--&lt;!&ndash;if (marker) {&ndash;&gt;-->
+            <!--&lt;!&ndash;return;&ndash;&gt;-->
+        <!--&lt;!&ndash;}&ndash;&gt;-->
+        <!--&lt;!&ndash;marker = new AMap.Marker({&ndash;&gt;-->
+            <!--&lt;!&ndash;icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",&ndash;&gt;-->
+            <!--&lt;!&ndash;position: [116.405467, 39.907761]&ndash;&gt;-->
+        <!--&lt;!&ndash;});&ndash;&gt;-->
+        <!--&lt;!&ndash;marker.setMap(map);&ndash;&gt;-->
+    <!--&lt;!&ndash;}&ndash;&gt;-->
+
+    <!--&lt;!&ndash;function addLocationMarker(lon, lat){&ndash;&gt;-->
+
+        <!--&lt;!&ndash;if (!marker) {&ndash;&gt;-->
+            <!--&lt;!&ndash;marker = new AMap.Marker({&ndash;&gt;-->
+                <!--&lt;!&ndash;icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",&ndash;&gt;-->
+                <!--&lt;!&ndash;position: [lon, lat]&ndash;&gt;-->
+            <!--&lt;!&ndash;});&ndash;&gt;-->
+
+            <!--&lt;!&ndash;marker.setMap(map);&ndash;&gt;-->
+        <!--&lt;!&ndash;} else {&ndash;&gt;-->
+            <!--&lt;!&ndash;marker.setPosition([lon, lat]); //更新点标记位置&ndash;&gt;-->
+        <!--&lt;!&ndash;}&ndash;&gt;-->
+
+        <!--&lt;!&ndash;map.panTo([lon, lat]);&ndash;&gt;-->
+    <!--&lt;!&ndash;}&ndash;&gt;-->
+
+    <!--&lt;!&ndash;function updateMarker() {&ndash;&gt;-->
+        <!--&lt;!&ndash;// 自定义点标记内容&ndash;&gt;-->
+        <!--&lt;!&ndash;var markerContent = document.createElement("div");&ndash;&gt;-->
+
+        <!--&lt;!&ndash;// 点标记中的图标&ndash;&gt;-->
+        <!--&lt;!&ndash;var markerImg = document.createElement("img");&ndash;&gt;-->
+        <!--&lt;!&ndash;markerImg.className = "markerlnglat";&ndash;&gt;-->
+        <!--&lt;!&ndash;markerImg.src = "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png";&ndash;&gt;-->
+        <!--&lt;!&ndash;markerContent.appendChild(markerImg);&ndash;&gt;-->
+
+        <!--&lt;!&ndash;// 点标记中的文本&ndash;&gt;-->
+        <!--&lt;!&ndash;var markerSpan = document.createElement("span");&ndash;&gt;-->
+        <!--&lt;!&ndash;markerSpan.className = 'marker';&ndash;&gt;-->
+        <!--&lt;!&ndash;markerSpan.innerHTML = "Hi，我换新装备啦！";&ndash;&gt;-->
+        <!--&lt;!&ndash;markerContent.appendChild(markerSpan);&ndash;&gt;-->
+
+        <!--&lt;!&ndash;marker.setContent(markerContent); //更新点标记内容&ndash;&gt;-->
+        <!--&lt;!&ndash;marker.setPosition([116.391467, 39.927761]); //更新点标记位置&ndash;&gt;-->
+    <!--&lt;!&ndash;}&ndash;&gt;-->
+
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+<!--&lt;!&ndash;引入高德JSAPI&ndash;&gt;-->
+<!--<script type="text/javascript" src = 'https://webapi.amap.com/maps?v=1.4.4&test=true&key=8e9d3050695ac868cc67257d84a5f740&plugin=AMap.ToolBar,AMap.IndoorMap'></script>-->
+
+<!--<script type="text/javascript">-->
+  <!--var log = document.getElementsByClassName('log')[0];-->
+  <!--var map = new AMap.Map('container',{-->
+    <!--resizeEnable: true,-->
+    <!--zoom: 10,-->
+    <!--center: [116.43, 39.9]-->
+  <!--});-->
+  <!--AMap.plugin(['AMap.Geolocation'],-->
+  <!--function(){-->
+    <!--geo  = new AMap.Geolocation({-->
+      <!--useNative:true-->
+    <!--})-->
+    <!--geo.on('complete',function(e){-->
+      <!--log.innerHTML+=e.info+' '+e.position+' '+e.message.split('.')[0]+'</br>'-->
+    <!--})-->
+    <!--geo.on('fail',function(e){-->
+     <!--log.innerHTML+=e.info+e.message.split('.')[0]+'</br>'-->
+    <!--})-->
+  <!--// map.addControl(geo);-->
+<!--});-->
+<!--</script>-->
+
+<!--//获取位置按钮-->
+<!--<button class = 'bt' onclick='geo.getCurrentPosition()'>获取位置</button>-->
+<!--<button class = 'bt' onclick='geo.watchPosition()'>连续定位</button>-->
+<!--<button class = 'bt' onclick='geo.clearWatch()'>停止定位</button>-->
+
+<button onclick="fetchLocation()">获取位置</button><script>
+        var tipsEle = document.getElementById('tips')
+        function fetchLocation() {
+        console.log('dfadfaf');
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError)
+            } else {
+                alert('当前设备不支持定位！')
+            }
+        }
+        function onGeoSuccess(event){
+            alert("Success: " + event.coords.latitude + ", " + event.coords.longitude)
+        }
+        function onGeoError(event){
+            alert("Error code " + event.code + ". " + event.message)
+        }
+    </script>
